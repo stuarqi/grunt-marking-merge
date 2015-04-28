@@ -1,7 +1,7 @@
 (function (Namespace) {
-    /*--MSize--*/
+    /*-- MPixel.js --*/
 
-    /*--MPixel--*/
+    /*--MSize.js--*/
 
     Namespace.Size = MSize;
     Namespace.Pixel = MPixel;

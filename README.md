@@ -25,11 +25,13 @@ In your project's Gruntfile, add a section named `marking_merge` to the data obj
 ```js
 grunt.initConfig({
   marking_merge: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    default: {
+      files : [
+        {
+          src : 'Namespace.js',  //The file containing marking string
+          dest : 'merged.js'    //The path of the merged file
+        }
+      ]
     },
   },
 });
@@ -37,32 +39,47 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.startSymbol
 Type: `String`
-Default value: `',  '`
+Default value: `/*<`
 
-A string value that is used to do something with whatever.
+A string value that is used to mark marking start.
 
-#### options.punctuation
+#### options.endSymbol
 Type: `String`
-Default value: `'.'`
+Default value: `>*/`
 
-A string value that is used to do something else with whatever else.
+A string value that is used to mark the marking end.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, The two files merged into a third file by marking.
 
 ```js
 grunt.initConfig({
   marking_merge: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    files: [{
+      src : 'Namespace.js',
+      dest : 'build/Namespace.js'
+    }]
+  }
 });
+```
+
+The Namespace.js code:
+ 
+```js
+var Namespace = (function (Namespace) {
+  // The marking of need to merge
+  /*< Size.js >*/
+    
+  /*< Pixel.js >*/
+  
+  Namespace.Size = Size;
+  Namespace.Pixel = Pixel;
+})(Namespace || {});
 ```
 
 #### Custom Options
@@ -72,18 +89,25 @@ In this example, custom options are used to do something else with whatever else
 grunt.initConfig({
   marking_merge: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      startSymbol: '/*--',
+      punctuation: '--*/'
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    files: [{
+      src : 'Namespace.js',
+      dest : 'build/Namespace.js'
+    }]
   },
 });
 ```
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
+```js
+var Namespace = (function (Namespace) {
+  // The marking of need to merge
+  /*-- Size.js --*/
+    
+  /*--Pixel.js--*/
+  
+  Namespace.Size = Size;
+  Namespace.Pixel = Pixel;
+})(Namespace || {});
+```

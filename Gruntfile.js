@@ -30,47 +30,18 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     marking_merge: {
-      default : {
-        files : [
-          {
-            template : 'test/src/template.js',
-            files : {
-              '/*--MSize--*/' : 'test/src/file1.js',
-              '/*--MPixel--*/' : 'test/src/file2.js'
-            },
-            dest : 'test/result/Namespace.js'
-          }
-        ]
-      },
-      single : {
-        template : 'test/src/template.js',
-        files : {
-          '/*--MSize--*/' : 'test/src/file1.js',
-          '/*--MPixel--*/' : 'test/src/file2.js'
+        options : {
+            startSymbol : '/*--',
+            endSymbol : '--*/'
         },
-        dest : 'test/result/Namespace.js'
-      },
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+        default : {
+            files : [
+                {
+                    dest : 'test/result/Namespace.js',
+                    src : 'test/src/Namespace.js'
+                }
+            ]
         }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
-    },
-
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js']
     }
 
   });
@@ -85,10 +56,6 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  // runt.registerTask('test', ['clean', 'marking_merge', 'nodeunit']);
-  grunt.registerTask('test', ['marking_merge:default']);
-
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('test', ['marking_merge']);
 
 };
