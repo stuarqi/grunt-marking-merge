@@ -19,7 +19,9 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('marking_merge', 'Grunt task to merge files by marking', function() {
       var options = this.options({
           startSymbol : '/*<',
-          endSymbol : '>*/'
+          endSymbol : '>*/',
+          banner : '',
+          footer : ''
       });
       options.startSymbol = escape(options.startSymbol);
       options.endSymbol = escape(options.endSymbol);
@@ -55,7 +57,7 @@ module.exports = function(grunt) {
                       );
                   });
               }
-              grunt.file.write(fileObj.dest, fileContent);
+              grunt.file.write(fileObj.dest, options.banner + fileContent + options.footer);
           });
 
       });
