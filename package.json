@@ -1,7 +1,7 @@
 {
   "name": "grunt-marking-merge",
   "description": "Grunt task to merge files by marking",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/stuarqi/grunt-marking-merge",
   "author": {
     "name": "zhangsq",
